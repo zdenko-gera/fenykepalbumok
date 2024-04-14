@@ -37,6 +37,11 @@ html, body {
     margin: 1vh;
 }
 
+#navbar-username {
+    margin-right: 3dvw;
+    color: black;
+}
+
 #db-conn-response {
     width: 100%;
     height: 60dvh;
@@ -75,4 +80,23 @@ footer {
     position: relative;
     bottom: 0;
     margin-top: 50dvh;
+}
+
+.success-msg {
+    margin-inline: auto;
+    padding: 1dvw 2dvw 1dvw 2dvw;
+    background-color: lightgreen;
+    border-radius: 0.5dvw;
+    top: 20dvh;
+    width: fit-content;
+}
+
+.error-msg {
+    margin-inline: auto;
+    padding: 1dvw 2dvw 1dvw 2dvw;
+    background-color: indianred;
+    border-radius: 0.5dvw;
+    top: 20dvh;
+    width: fit-content;
+    margin-bottom: 2dvh;
 }

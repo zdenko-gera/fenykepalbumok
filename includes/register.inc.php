@@ -45,18 +45,10 @@ if(isset($_POST["register-btn"])) {
         $e = oci_error($conn);
         trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     } else {
-        echo "siker";
+        header("Location: ../main.php?signup=success");
+        exit();
     }
     oci_free_statement($stmt);
-
-
-
-
-
-
-
-
-
 
 
 } else {
