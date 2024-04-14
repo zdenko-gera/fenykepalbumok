@@ -1,1 +1,1 @@
-# fenykepalbumok.adatb
+# fenykepalbumok
