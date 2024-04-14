@@ -3,9 +3,11 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #f1f1f1;
     width: 40dvw;
     padding: 3dvw;
     margin-inline: auto;
     margin-top: 10dvh;
+    border-radius: 1dvh;
+    border: 1px solid grey;
+    background-color: #eee;
 }

@@ -33,11 +33,12 @@ if(isset($_POST["register-btn"])) {
 
 
 
-    $sql= 'INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES (:username, :pwd, :email)';
+    $sql= 'INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES (:username, :pwd, :email, :role)';
     $stmt = oci_parse($conn, $sql);
     oci_bind_by_name($stmt,':username',$username);
     oci_bind_by_name($stmt,':email',$email);
     oci_bind_by_name($stmt,':pwd',$pwdHash);
+    oci_bind_by_name($stmt,':role',$role);
 
     oci_execute($stmt);
 

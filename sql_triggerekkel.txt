@@ -50,7 +50,11 @@ CREATE TABLE "CATEGORIES"
    (	"IMAGE_ID" NUMBER(*,0), 
 	"IMAGE_PATH" VARCHAR2(255 BYTE), 
 	"UPLOAD_DATE" DATE, 
-	"USER_ID" NUMBER(*,0)
+	"USER_ID" NUMBER(*,0),
+	"TITLE" VARCHAR2(50 BYTE),
+	"LOCATION_ID" NUMBER,
+	"CATEGORY_ID" NUMBER,
+    "OWNER_EMAIL" VARCHAR2(100 BYTE)
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -98,7 +102,8 @@ CREATE TABLE "CATEGORIES"
    (	"USER_ID" NUMBER(*,0), 
 	"USERNAME" VARCHAR2(50 BYTE), 
 	"PASSWORD" VARCHAR2(125 CHAR), 
-	"EMAIL" VARCHAR2(100 BYTE)
+	"EMAIL" VARCHAR2(100 BYTE),
+	"ROLE" VARCHAR2(50 BYTE)
    ) SEGMENT CREATION IMMEDIATE 
   PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
  NOCOMPRESS LOGGING
@@ -280,26 +285,66 @@ Insert into CONTESTS (CONTEST_NAME,CONTEST_DESCRIPTION,START_DATE,END_DATE) valu
 Insert into CONTESTS (CONTEST_NAME,CONTEST_DESCRIPTION,START_DATE,END_DATE) values ('Állatfotó Verseny','Készítsd el a legaranyosabb vagy legszebb állatfotót!',to_date('2024-11-01','YYYY-MM-DD'),to_date('2024-11-30','YYYY-MM-DD'));
 REM INSERTING into IMAGES
 SET DEFINE OFF;
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('huszadik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'20');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('elso_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'1');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('masodik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'2');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('harmadik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'3');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('negyedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'4');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('otodik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'5');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('hatodik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'6');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('hetedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'7');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('nyolcadik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'8');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('kilencedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'9');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'10');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenegyedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'11');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenkettedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'12');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenharmadik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'13');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizennegyedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'14');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenotodik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'15');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenhatodik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'16');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenhetedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'17');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizennyolcadik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'18');
-Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenkilencedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'19');
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('huszadik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 20, 'Huszadik kép', 1, 1, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('elso_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 1, 'Első kép', 2, 2, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('masodik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 2, 'Második kép', 3, 3, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('harmadik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 3, 'Harmadik kép', 4, 4, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('negyedik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 4, 'Negyedik kép', 5, 5, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('otodik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 5, 'Ötödik kép', 6, 6, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('hatodik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 6, 'Hatodik kép', 7, 7, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('hetedik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 7, 'Hetedik kép', 8, 8, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('nyolcadik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 8, 'Nyolcadik kép', 9, 9, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('kilencedik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 9, 'Kilencedik kép', 10, 10, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('tizedik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 10, 'Tizedik kép', 11, 11, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('tizenegyedik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 11, 'Tizenegyedik kép', 12, 12, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('tizenkettedik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 12, 'Tizenkettedik kép', 13, 13, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('tizenharmadik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 13, 'Tizenharmadik kép', 14, 14, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('tizennegyedik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 14, 'Tizennegyedik kép', 15, 15, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('tizenotodik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 15, 'Tizenötödik kép', 16, 16, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('tizenhatodik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 16, 'Tizenhatodik kép', 17, 17, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('tizenhetedik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 17, 'Tizenhetedik kép', 18, 18, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('tizennyolcadik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 18, 'Tizennyolcadik kép', 19, 19, 'owner@example.com');
+
+Insert into IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL)
+values ('tizenkilencedik_kep.jpg', to_date('2024-03-25','YYYY-MM-DD'), 19, 'Tizenkilencedik kép', 20, 20, 'owner@example.com');
+
 REM INSERTING into LOCATIONS
 SET DEFINE OFF;
 Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Budapest','Hungary','Budapest');
@@ -357,56 +402,57 @@ Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('11','1','3');
 
 REM INSERTING into USERS
 SET DEFINE OFF;
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('JohnSmith', 'johnpassword', 'john@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('EmilyFlores', 'emilypassword', 'emily@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('EmmaJohnson', 'emmapassword', 'emma@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('MichaelBrown', 'michaelpassword', 'michael@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('JenniferDavis', 'jenniferpassword', 'jennifer@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('DavidWilson', 'davidpassword', 'david@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('LindaMartinez', 'lindapassword', 'linda@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('WilliamAnderson', 'williampassword', 'william@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('MariaTaylor', 'mariapassword', 'maria@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('JamesThomas', 'jamespassword', 'james@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('SusanHernandez', 'susanpassword', 'susan@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('CharlesMoore', 'charlespassword', 'charles@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('PatriciaJackson', 'patriciapassword', 'patricia@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('RobertWhite', 'robertpassword', 'robert@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('BarbaraHarris', 'barbarapassword', 'barbara@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('DanielMartin', 'danielpassword', 'daniel@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('SarahYoung', 'sarahpassword', 'sarah@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('RichardClark', 'richardpassword', 'richard@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('NancyAllen', 'nancypassword', 'nancy@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('PaulLewis', 'paulpassword', 'paul@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('KarenWalker', 'karenpasswor', 'karen@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('MarkHall', 'markpassword', 'mark@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('DonnaKing', 'donnapassword', 'donna@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('EdwardWright', 'edwardpassword', 'edward@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('LisaLopez', 'lisapassword', 'lisa@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('StevenHill', 'stevenpassword', 'steven@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('CarolScott', 'carolpassword', 'carol@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('KennethGreen', 'kennethpassword', 'kenneth@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('MichelleAdams', 'michellepassword', 'michelle@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('JoshuaBaker', 'joshuapassword', 'joshua@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('AmandaGonzalez', 'amandapassword', 'amanda@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('BrianNelson', 'brianpassword', 'brian@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('MelissaCarter', 'melissapassword', 'melissa@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('TimothyPerez', 'timothypassword', 'timothy@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('LauraRoberts', 'laurapassword', 'laura@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('KevinTurner', 'kevinpassword', 'kevin@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('RebeccaPhillips', 'rebeccapassword', 'rebecca@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('RonaldEvans', 'ronaldpassword', 'ronald@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('AngelaRussell', 'angelapassword', 'angela@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('JerryCruz', 'jerrypassword', 'jerry@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('TammyHoward', 'tammypassword', 'tammy@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('ScottEdwards', 'scottpassword', 'scott@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('StephanieMorris', 'stephaniepassword', 'stephanie@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('KeithWard', 'keithpassword', 'keith@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('TerryRivera', 'terrypassword', 'terry@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('CatherineCook', 'catherinepassword', 'catherine@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('PhillipBailey', 'phillippassword', 'phillip@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('DeborahLong', 'deborahpassword', 'deborah@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('BobbyPerry', 'bobbypassword', 'bobby@example.com');
-INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('PamelaHughes', 'pamelapassword', 'pamela@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('JohnSmith', 'johnpassword', 'john@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('EmilyFlores', 'emilypassword', 'emily@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('EmmaJohnson', 'emmapassword', 'emma@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('MichaelBrown', 'michaelpassword', 'michael@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('JenniferDavis', 'jenniferpassword', 'jennifer@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('DavidWilson', 'davidpassword', 'david@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('LindaMartinez', 'lindapassword', 'linda@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('WilliamAnderson', 'williampassword', 'william@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('MariaTaylor', 'mariapassword', 'maria@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('JamesThomas', 'jamespassword', 'james@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('SusanHernandez', 'susanpassword', 'susan@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('CharlesMoore', 'charlespassword', 'charles@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('PatriciaJackson', 'patriciapassword', 'patricia@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('RobertWhite', 'robertpassword', 'robert@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('BarbaraHarris', 'barbarapassword', 'barbara@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('DanielMartin', 'danielpassword', 'daniel@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('SarahYoung', 'sarahpassword', 'sarah@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('RichardClark', 'richardpassword', 'richard@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('NancyAllen', 'nancypassword', 'nancy@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('PaulLewis', 'paulpassword', 'paul@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('KarenWalker', 'karenpasswor', 'karen@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('MarkHall', 'markpassword', 'mark@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('DonnaKing', 'donnapassword', 'donna@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('EdwardWright', 'edwardpassword', 'edward@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('LisaLopez', 'lisapassword', 'lisa@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('StevenHill', 'stevenpassword', 'steven@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('CarolScott', 'carolpassword', 'carol@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('KennethGreen', 'kennethpassword', 'kenneth@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('MichelleAdams', 'michellepassword', 'michelle@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('JoshuaBaker', 'joshuapassword', 'joshua@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('AmandaGonzalez', 'amandapassword', 'amanda@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('BrianNelson', 'brianpassword', 'brian@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('MelissaCarter', 'melissapassword', 'melissa@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('TimothyPerez', 'timothypassword', 'timothy@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('LauraRoberts', 'laurapassword', 'laura@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('KevinTurner', 'kevinpassword', 'kevin@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('RebeccaPhillips', 'rebeccapassword', 'rebecca@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('RonaldEvans', 'ronaldpassword', 'ronald@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('AngelaRussell', 'angelapassword', 'angela@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('JerryCruz', 'jerrypassword', 'jerry@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('TammyHoward', 'tammypassword', 'tammy@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('ScottEdwards', 'scottpassword', 'scott@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('StephanieMorris', 'stephaniepassword', 'stephanie@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('KeithWard', 'keithpassword', 'keith@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('TerryRivera', 'terrypassword', 'terry@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('CatherineCook', 'catherinepassword', 'catherine@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('PhillipBailey', 'phillippassword', 'phillip@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('DeborahLong', 'deborahpassword', 'deborah@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('BobbyPerry', 'bobbypassword', 'bobby@example.com', 'user');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('PamelaHughes', 'pamelapassword', 'pamela@example.com', 'user');
+
 
 --------------------------------------------------------
 --  DDL for Index SYS_C0010005
@@ -520,6 +566,9 @@ INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('PamelaHughes', 'pamelapas
 
   ALTER TABLE "IMAGES" MODIFY ("IMAGE_PATH" NOT NULL ENABLE);
   ALTER TABLE "IMAGES" MODIFY ("UPLOAD_DATE" NOT NULL ENABLE);
+  ALTER TABLE "IMAGES" MODIFY ("TITLE" NOT NULL ENABLE);
+  ALTER TABLE "IMAGES" MODIFY ("CATEGORY_ID" NOT NULL ENABLE);
+  ALTER TABLE "IMAGES" MODIFY ("OWNER_EMAIL" NOT NULL ENABLE);
   ALTER TABLE "IMAGES" ADD PRIMARY KEY ("IMAGE_ID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
@@ -558,6 +607,7 @@ INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('PamelaHughes', 'pamelapas
   ALTER TABLE "USERS" MODIFY ("USERNAME" NOT NULL ENABLE);
   ALTER TABLE "USERS" MODIFY ("PASSWORD" NOT NULL ENABLE);
   ALTER TABLE "USERS" MODIFY ("EMAIL" NOT NULL ENABLE);
+  ALTER TABLE "USERS" MODIFY ("ROLE" NOT NULL ENABLE);
   ALTER TABLE "USERS" ADD PRIMARY KEY ("USER_ID")
   USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
   STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
@@ -578,6 +628,12 @@ INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('PamelaHughes', 'pamelapas
 
   ALTER TABLE "IMAGES" ADD FOREIGN KEY ("USER_ID")
 	  REFERENCES "USERS" ("USER_ID") ENABLE;
+  ALTER TABLE "IMAGES" ADD FOREIGN KEY ("LOCATION_ID")
+      REFERENCES "LOCATIONS" ("LOCATION_ID") ENABLE;
+  ALTER TABLE "IMAGES" ADD FOREIGN KEY ("CATEGORY_ID")
+  	  REFERENCES "CATEGORIES" ("CATEGORY_ID") ENABLE;
+  ALTER TABLE "IMAGES" ADD FOREIGN KEY ("OWNER_EMAIL")
+      REFERENCES "USERS" ("EMAIL") ENABLE;
 --------------------------------------------------------
 --  Ref Constraints for Table PHOTORATING
 --------------------------------------------------------

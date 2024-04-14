@@ -22,13 +22,18 @@ if(isset($_GET["login"])) {
         echo "<div class='success-msg'>Szia, ".$_SESSION["username"]."!</div>";
     }
 }
+if(isset($_GET["create_category"])) {
+    if($_GET["create_category"] == "success") {
+        echo "<div class='success-msg'>Kategória létrehozva!</div>";
+    }
+}
 
 ?>
 <h2>Hozd létre az első fotóalbumodat nálunk!</h2>
 
 <?php
 if(isset($_SESSION["username"])) {
-    echo '<a href="createAlbum.php" class="btn-w-padding">Létrehozom!</a>';
+    echo '<a href="createCategory.php" class="btn-w-padding">Létrehozom!</a>';
 } else {
     echo '<a href="login.php" class="btn-w-padding">Létrehozom!</a>';
 }

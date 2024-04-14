@@ -1,0 +1,19 @@
+#categories-table {
+    display: block;
+    margin-inline: auto;
+    width: fit-content;
+    border: 1px solid grey;
+    border-radius: 1dvh;
+    border-spacing: 1dvh;
+    padding: 1dvh;
+}
+
+#categories-table tr, td {
+    margin: 1dvh;
+    text-align: center;
+}
+
+#add-category-plus-icon {
+    width: 2dvw;
+    margin-inline: auto;
+}

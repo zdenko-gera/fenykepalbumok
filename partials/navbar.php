@@ -8,8 +8,10 @@
                 <?php
                     if(isset($_SESSION["username"])) {
                         echo '<span id="navbar-username">'.$_SESSION["username"].'</span>';
+                        echo '<a href="categories.php" class="navbar-link">Kategóriák</a>';
                         echo '<a href="includes/logout.inc.php" class="navbar-link">Kijelentkezés</a>';
                     } else {
+                        echo '<a href="categories.php" class="navbar-link">Kategóriák</a>';
                         echo '
                             <a href="login.php" class="navbar-link">Bejelentkezés</a>
                             <a href="register.php" class="navbar-link">Regisztráció</a>';
