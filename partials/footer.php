@@ -1,0 +1,3 @@
+<footer>
+    Fenykepalbumok.hu
+</footer>

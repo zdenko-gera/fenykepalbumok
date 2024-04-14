@@ -6,6 +6,7 @@
 <body>
 <?php
     include_once('partials/navbar.php');
+    require_once("includes/db-conn.php");
 ?>
 
 <div id="db-conn-response">
@@ -26,11 +27,14 @@ if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
 } else {
-    echo '<p>Adatbáziskapcsolat sikeresen létrehozva!</p>';
+    echo '<img src="icons/green-checkmark-icon.svg" alt="pipa" id="db-tick"><p>Adatbáziskapcsolat sikeresen létrehozva!</p>';
     echo '</div>';
-    echo '<a href="main.php" id="jumo-to-main-page-btn">Tovább a kezdőlapra!</a>';
+    echo '<a href="main.php" class="btn-w-padding" id="jumo-to-main-page-btn">Tovább a kezdőlapra!</a>';
 }
 ?>
 
+<?php
+include_once('partials/footer.php');
+?>
 </body>
 </html>
