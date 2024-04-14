@@ -1,0 +1,589 @@
+CREATE TABLE "CATEGORIES" 
+   (	"CATEGORY_ID" NUMBER(*,0), 
+	"CATEGORY_NAME" VARCHAR2(50 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table COMMENTS
+--------------------------------------------------------
+
+  CREATE TABLE "COMMENTS" 
+   (	"COMMENT_ID" NUMBER, 
+	"CONTENT" VARCHAR2(4000 BYTE), 
+	"COMMENT_DATE" DATE, 
+	"USER_ID" NUMBER, 
+	"IMAGE_ID" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table CONTESTS
+--------------------------------------------------------
+
+  CREATE TABLE "CONTESTS" 
+   (	"CONTEST_ID" NUMBER, 
+	"CONTEST_NAME" VARCHAR2(100 BYTE), 
+	"CONTEST_DESCRIPTION" VARCHAR2(4000 BYTE), 
+	"START_DATE" DATE, 
+	"END_DATE" DATE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table IMAGES
+--------------------------------------------------------
+
+  CREATE TABLE "IMAGES" 
+   (	"IMAGE_ID" NUMBER(*,0), 
+	"IMAGE_PATH" VARCHAR2(255 BYTE), 
+	"UPLOAD_DATE" DATE, 
+	"USER_ID" NUMBER(*,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table LOCATIONS
+--------------------------------------------------------
+
+  CREATE TABLE "LOCATIONS" 
+   (	"LOCATION_ID" NUMBER(*,0), 
+	"LOCATION_NAME" VARCHAR2(100 BYTE), 
+	"COUNTRY" VARCHAR2(50 BYTE), 
+	"CITY" VARCHAR2(50 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table PHOTORATING
+--------------------------------------------------------
+
+  CREATE TABLE "PHOTORATING" 
+   (	"ID" NUMBER, 
+	"PHOTOID" NUMBER, 
+	"RATINGUSERID" NUMBER, 
+	"RATING" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Table USERS
+--------------------------------------------------------
+
+  CREATE TABLE "USERS" 
+   (	"USER_ID" NUMBER(*,0), 
+	"USERNAME" VARCHAR2(50 BYTE), 
+	"PASSWORD" VARCHAR2(125 CHAR), 
+	"EMAIL" VARCHAR2(100 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 
+ NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+
+--------------------------------------------------------
+-- Triggerek, Sequence-k USERS táblához
+--------------------------------------------------------
+CREATE SEQUENCE users_seq
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER users_trigger
+BEFORE INSERT ON USERS
+FOR EACH ROW
+BEGIN
+    SELECT users_seq.NEXTVAL
+    INTO :new.USER_ID
+    FROM dual;
+END;
+/
+--------------------------------------------------------
+-- Triggerek, Sequence-k PHOTORATING táblához
+--------------------------------------------------------
+CREATE SEQUENCE photorating_seq
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER photorating_trigger
+BEFORE INSERT ON PHOTORATING
+FOR EACH ROW
+BEGIN
+    SELECT photorating_seq.NEXTVAL
+    INTO :new.ID
+    FROM dual;
+END;
+/
+--------------------------------------------------------
+-- Triggerek, Sequence-k LOCATIONS táblához
+--------------------------------------------------------
+CREATE SEQUENCE location_seq
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER location_trigger
+BEFORE INSERT ON LOCATIONS
+FOR EACH ROW
+BEGIN
+    SELECT location_seq.NEXTVAL
+    INTO :new.LOCATION_ID
+    FROM dual;
+END;
+/
+--------------------------------------------------------
+-- Triggerek, Sequence-k IMAGES táblához
+--------------------------------------------------------
+CREATE SEQUENCE image_seq
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER image_trigger
+BEFORE INSERT ON IMAGES
+FOR EACH ROW
+BEGIN
+    SELECT image_seq.NEXTVAL
+    INTO :new.IMAGE_ID
+    FROM dual;
+END;
+/
+--------------------------------------------------------
+-- Triggerek, Sequence-k CONTESTS táblához
+--------------------------------------------------------
+CREATE SEQUENCE contest_seq
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER contest_trigger
+BEFORE INSERT ON CONTESTS
+FOR EACH ROW
+BEGIN
+    SELECT contest_seq.NEXTVAL
+    INTO :new.CONTEST_ID
+    FROM dual;
+END;
+/
+--------------------------------------------------------
+-- Triggerek, Sequence-k COMMENTS táblához
+--------------------------------------------------------
+CREATE SEQUENCE comment_seq
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER comment_trigger
+BEFORE INSERT ON COMMENTS
+FOR EACH ROW
+BEGIN
+    SELECT comment_seq.NEXTVAL
+    INTO :new.COMMENT_ID
+    FROM dual;
+END;
+/
+--------------------------------------------------------
+-- Triggerek, Sequence-k CATEGORIES táblához
+--------------------------------------------------------
+CREATE SEQUENCE category_seq
+START WITH 1
+INCREMENT BY 1;
+/
+
+CREATE OR REPLACE TRIGGER category_trigger
+BEFORE INSERT ON CATEGORIES
+FOR EACH ROW
+BEGIN
+    SELECT category_seq.NEXTVAL
+    INTO :new.CATEGORY_ID
+    FROM dual;
+END;
+/
+REM INSERTING into CATEGORIES
+SET DEFINE OFF;
+Insert into CATEGORIES (CATEGORY_NAME) values ('Építészet');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Portré');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Tájkép');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Utazás');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Étel és Ital');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Állatok');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Természet');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Művészet');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Sport');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Portfólió');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Szépség és Divat');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Technológia');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Kultúra');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Film és TV');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Zene');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Könyvek és Olvasás');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Játékok');
+Insert into CATEGORIES (CATEGORY_NAME) values ('DIY és Kézművesség');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Egészség és Fitnesz');
+Insert into CATEGORIES (CATEGORY_NAME) values ('Szórakozás');
+REM INSERTING into COMMENTS
+SET DEFINE OFF;
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Nagyon szép kép!',to_date('2024-03-25','YYYY-MM-DD'),'1','1');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Fantasztikus látvány!',to_date('2024-03-24','YYYY-MM-DD'),'2','2');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Ez nagyon tetszik nekem!',to_date('2024-03-23','YYYY-MM-DD'),'3','3');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Nagyon jó fotó!',to_date('2024-03-22','YYYY-MM-DD'),'4','4');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Imádom ezt a képet!',to_date('2024-03-21','YYYY-MM-DD'),'5','5');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Fantasztikus munka!',to_date('2024-03-20','YYYY-MM-DD'),'6','6');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Nagyon szép hely!',to_date('2024-03-19','YYYY-MM-DD'),'7','7');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Ez lenyűgöző!',to_date('2024-03-18','YYYY-MM-DD'),'8','8');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Remek pillanat!',to_date('2024-03-17','YYYY-MM-DD'),'9','9');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Nagyon tetszik ez a kép!',to_date('2024-03-16','YYYY-MM-DD'),'10','10');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Csodás munka!',to_date('2024-03-15','YYYY-MM-DD'),'11','11');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Fantasztikus kép!',to_date('2024-03-14','YYYY-MM-DD'),'12','12');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Ez egy nagyszerű fotó!',to_date('2024-03-13','YYYY-MM-DD'),'13','13');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Imádom ezt a helyet!',to_date('2024-03-12','YYYY-MM-DD'),'14','14');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Fantasztikus kompozíció!',to_date('2024-03-11','YYYY-MM-DD'),'15','15');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Nagyon jó fények!',to_date('2024-03-10','YYYY-MM-DD'),'16','16');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Nagyon szép fotó!',to_date('2024-03-09','YYYY-MM-DD'),'17','17');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Fantasztikus hangulat!',to_date('2024-03-08','YYYY-MM-DD'),'18','18');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Nagyon tetszik a színek!',to_date('2024-03-07','YYYY-MM-DD'),'19','19');
+Insert into COMMENTS (CONTENT,COMMENT_DATE,USER_ID,IMAGE_ID) values ('Fantasztikus kép!',to_date('2024-03-06','YYYY-MM-DD'),'20','20');
+
+REM INSERTING into CONTESTS
+SET DEFINE OFF;
+Insert into CONTESTS (CONTEST_NAME,CONTEST_DESCRIPTION,START_DATE,END_DATE) values ('Tavaszi Fotóverseny','Készítsd el a legszebb tavaszi pillanatot!',to_date('2024-03-01','YYYY-MM-DD'),to_date('2024-03-31','YYYY-MM-DD'));
+Insert into CONTESTS (CONTEST_NAME,CONTEST_DESCRIPTION,START_DATE,END_DATE) values ('Év Fotója','Az év legjobb fotója lesz a nyertes!',to_date('2024-01-01','YYYY-MM-DD'),to_date('2024-12-31','YYYY-MM-DD'));
+Insert into CONTESTS (CONTEST_NAME,CONTEST_DESCRIPTION,START_DATE,END_DATE) values ('Portréfotó Verseny','Mutassuk meg, ki a legkreatívabb portréfotós!',to_date('2024-06-01','YYYY-MM-DD'),to_date('2024-06-30','YYYY-MM-DD'));
+Insert into CONTESTS (CONTEST_NAME,CONTEST_DESCRIPTION,START_DATE,END_DATE) values ('Utazási Fotók','A legjobb utazási fotók lesznek a győztesek!',to_date('2024-09-01','YYYY-MM-DD'),to_date('2024-09-30','YYYY-MM-DD'));
+Insert into CONTESTS (CONTEST_NAME,CONTEST_DESCRIPTION,START_DATE,END_DATE) values ('Állatfotó Verseny','Készítsd el a legaranyosabb vagy legszebb állatfotót!',to_date('2024-11-01','YYYY-MM-DD'),to_date('2024-11-30','YYYY-MM-DD'));
+REM INSERTING into IMAGES
+SET DEFINE OFF;
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('huszadik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'20');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('elso_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'1');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('masodik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'2');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('harmadik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'3');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('negyedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'4');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('otodik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'5');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('hatodik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'6');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('hetedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'7');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('nyolcadik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'8');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('kilencedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'9');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'10');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenegyedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'11');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenkettedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'12');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenharmadik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'13');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizennegyedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'14');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenotodik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'15');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenhatodik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'16');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenhetedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'17');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizennyolcadik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'18');
+Insert into IMAGES (IMAGE_PATH,UPLOAD_DATE,USER_ID) values ('tizenkilencedik_kep.jpg',to_date('2024-03-25','YYYY-MM-DD'),'19');
+REM INSERTING into LOCATIONS
+SET DEFINE OFF;
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Budapest','Hungary','Budapest');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Debrecen','Hungary','Debrecen');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Szeged','Hungary','Szeged');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Miskolc','Hungary','Miskolc');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Pécs','Hungary','Pécs');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Győr','Hungary','Győr');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Nyíregyháza','Hungary','Nyíregyháza');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Kecskemét','Hungary','Kecskemét');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Székesfehérvár','Hungary','Székesfehérvár');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Szombathely','Hungary','Szombathely');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Agárd','Hungary','Agárd');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Pápa','Hungary','Pápa');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Veszprém','Hungary','Veszprém');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Tatabánya','Hungary','Tatabánya');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Salgótarján','Hungary','Salgótarján');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Szekszárd','Hungary','Szekszárd');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Eger','Hungary','Eger');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Békéscsaba','Hungary','Békéscsaba');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Szolnok','Hungary','Szolnok');
+Insert into LOCATIONS (LOCATION_NAME,COUNTRY,CITY) values ('Zalaegerszeg','Hungary','Zalaegerszeg');
+REM INSERTING into PHOTORATING
+SET DEFINE OFF;
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('1','1','10');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('1','1','7');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('2','1','5');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('2','4','5');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('11','4','9');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('1','5','4');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('10','13','4');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('9','2','9');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('8','11','8');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('7','2','3');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('7','12','1');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('1','4','9');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('6','10','3');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('5','10','5');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('1','11','2');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('4','4','6');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('4','7','9');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('1','7','6');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('4','7','10');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('3','3','1');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('11','2','9');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('1','5','5');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('12','5','6');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('2','5','9');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('2','5','10');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('13','3','10');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('13','3','5');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('3','14','10');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('10','14','8');
+Insert into PHOTORATING (PHOTOID,RATINGUSERID,RATING) values ('11','1','3');
+
+REM INSERTING into USERS
+SET DEFINE OFF;
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('JohnSmith', 'johnpassword', 'john@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('EmilyFlores', 'emilypassword', 'emily@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('EmmaJohnson', 'emmapassword', 'emma@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('MichaelBrown', 'michaelpassword', 'michael@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('JenniferDavis', 'jenniferpassword', 'jennifer@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('DavidWilson', 'davidpassword', 'david@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('LindaMartinez', 'lindapassword', 'linda@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('WilliamAnderson', 'williampassword', 'william@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('MariaTaylor', 'mariapassword', 'maria@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('JamesThomas', 'jamespassword', 'james@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('SusanHernandez', 'susanpassword', 'susan@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('CharlesMoore', 'charlespassword', 'charles@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('PatriciaJackson', 'patriciapassword', 'patricia@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('RobertWhite', 'robertpassword', 'robert@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('BarbaraHarris', 'barbarapassword', 'barbara@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('DanielMartin', 'danielpassword', 'daniel@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('SarahYoung', 'sarahpassword', 'sarah@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('RichardClark', 'richardpassword', 'richard@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('NancyAllen', 'nancypassword', 'nancy@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('PaulLewis', 'paulpassword', 'paul@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('KarenWalker', 'karenpasswor', 'karen@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('MarkHall', 'markpassword', 'mark@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('DonnaKing', 'donnapassword', 'donna@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('EdwardWright', 'edwardpassword', 'edward@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('LisaLopez', 'lisapassword', 'lisa@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('StevenHill', 'stevenpassword', 'steven@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('CarolScott', 'carolpassword', 'carol@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('KennethGreen', 'kennethpassword', 'kenneth@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('MichelleAdams', 'michellepassword', 'michelle@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('JoshuaBaker', 'joshuapassword', 'joshua@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('AmandaGonzalez', 'amandapassword', 'amanda@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('BrianNelson', 'brianpassword', 'brian@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('MelissaCarter', 'melissapassword', 'melissa@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('TimothyPerez', 'timothypassword', 'timothy@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('LauraRoberts', 'laurapassword', 'laura@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('KevinTurner', 'kevinpassword', 'kevin@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('RebeccaPhillips', 'rebeccapassword', 'rebecca@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('RonaldEvans', 'ronaldpassword', 'ronald@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('AngelaRussell', 'angelapassword', 'angela@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('JerryCruz', 'jerrypassword', 'jerry@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('TammyHoward', 'tammypassword', 'tammy@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('ScottEdwards', 'scottpassword', 'scott@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('StephanieMorris', 'stephaniepassword', 'stephanie@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('KeithWard', 'keithpassword', 'keith@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('TerryRivera', 'terrypassword', 'terry@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('CatherineCook', 'catherinepassword', 'catherine@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('PhillipBailey', 'phillippassword', 'phillip@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('DeborahLong', 'deborahpassword', 'deborah@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('BobbyPerry', 'bobbypassword', 'bobby@example.com');
+INSERT INTO USERS (USERNAME, PASSWORD, EMAIL) VALUES ('PamelaHughes', 'pamelapassword', 'pamela@example.com');
+
+--------------------------------------------------------
+--  DDL for Index SYS_C0010005
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0010005" ON "CATEGORIES" ("CATEGORY_ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0010010
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0010010" ON "COMMENTS" ("COMMENT_ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0010020
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0010020" ON "CONTESTS" ("CONTEST_ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0010002
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0010002" ON "IMAGES" ("IMAGE_ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C0010007
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C0010007" ON "LOCATIONS" ("LOCATION_ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index ASD
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "ASD" ON "PHOTORATING" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  DDL for Index SYS_C009999
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "SYS_C009999" ON "USERS" ("USER_ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS" ;
+--------------------------------------------------------
+--  Constraints for Table CATEGORIES
+--------------------------------------------------------
+
+  ALTER TABLE "CATEGORIES" MODIFY ("CATEGORY_NAME" NOT NULL ENABLE);
+  ALTER TABLE "CATEGORIES" ADD PRIMARY KEY ("CATEGORY_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table COMMENTS
+--------------------------------------------------------
+
+  ALTER TABLE "COMMENTS" MODIFY ("CONTENT" NOT NULL ENABLE);
+  ALTER TABLE "COMMENTS" MODIFY ("COMMENT_DATE" NOT NULL ENABLE);
+  ALTER TABLE "COMMENTS" ADD PRIMARY KEY ("COMMENT_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table CONTESTS
+--------------------------------------------------------
+
+  ALTER TABLE "CONTESTS" MODIFY ("CONTEST_NAME" NOT NULL ENABLE);
+  ALTER TABLE "CONTESTS" MODIFY ("START_DATE" NOT NULL ENABLE);
+  ALTER TABLE "CONTESTS" MODIFY ("END_DATE" NOT NULL ENABLE);
+  ALTER TABLE "CONTESTS" ADD PRIMARY KEY ("CONTEST_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table IMAGES
+--------------------------------------------------------
+
+  ALTER TABLE "IMAGES" MODIFY ("IMAGE_PATH" NOT NULL ENABLE);
+  ALTER TABLE "IMAGES" MODIFY ("UPLOAD_DATE" NOT NULL ENABLE);
+  ALTER TABLE "IMAGES" ADD PRIMARY KEY ("IMAGE_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table LOCATIONS
+--------------------------------------------------------
+
+  ALTER TABLE "LOCATIONS" MODIFY ("LOCATION_NAME" NOT NULL ENABLE);
+  ALTER TABLE "LOCATIONS" ADD PRIMARY KEY ("LOCATION_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table PHOTORATING
+--------------------------------------------------------
+
+  ALTER TABLE "PHOTORATING" MODIFY ("ID" NOT NULL ENABLE);
+  ALTER TABLE "PHOTORATING" MODIFY ("PHOTOID" NOT NULL ENABLE);
+  ALTER TABLE "PHOTORATING" MODIFY ("RATINGUSERID" NOT NULL ENABLE);
+  ALTER TABLE "PHOTORATING" MODIFY ("RATING" NOT NULL ENABLE);
+  ALTER TABLE "PHOTORATING" ADD CONSTRAINT "ASD" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table USERS
+--------------------------------------------------------
+
+  ALTER TABLE "USERS" MODIFY ("USERNAME" NOT NULL ENABLE);
+  ALTER TABLE "USERS" MODIFY ("PASSWORD" NOT NULL ENABLE);
+  ALTER TABLE "USERS" MODIFY ("EMAIL" NOT NULL ENABLE);
+  ALTER TABLE "USERS" ADD PRIMARY KEY ("USER_ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1
+  BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "USERS"  ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table COMMENTS
+--------------------------------------------------------
+
+  ALTER TABLE "COMMENTS" ADD FOREIGN KEY ("USER_ID")
+	  REFERENCES "USERS" ("USER_ID") ENABLE;
+  ALTER TABLE "COMMENTS" ADD FOREIGN KEY ("IMAGE_ID")
+	  REFERENCES "IMAGES" ("IMAGE_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table IMAGES
+--------------------------------------------------------
+
+  ALTER TABLE "IMAGES" ADD FOREIGN KEY ("USER_ID")
+	  REFERENCES "USERS" ("USER_ID") ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table PHOTORATING
+--------------------------------------------------------
+
+  ALTER TABLE "PHOTORATING" ADD CONSTRAINT "PHOTOID" FOREIGN KEY ("PHOTOID")
+	  REFERENCES "IMAGES" ("IMAGE_ID") ENABLE;
+  ALTER TABLE "PHOTORATING" ADD CONSTRAINT "RATINGUSERID" FOREIGN KEY ("RATINGUSERID")
+	  REFERENCES "USERS" ("USER_ID") ENABLE;
+
