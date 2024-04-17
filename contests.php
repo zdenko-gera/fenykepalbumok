@@ -9,6 +9,12 @@
 include_once('partials/navbar.php');
 require_once('includes/db-conn.php');
 
+if(isset($_GET["delete_contest"])) {
+    if($_GET["delete_contest"] == "success") {
+        echo "<div class='success-msg'>Sikeres törlés!</div>";
+    }
+}
+
 echo '<h2>Kategóriák</h2>';
 echo '<table id="categories-table">';
 $stid = oci_parse($conn, 'SELECT * FROM CONTESTS');
@@ -23,9 +29,9 @@ while ( $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
     echo '<td>'.$row["START_DATE"].'</td>';
     echo '<td>'.$row["END_DATE"].'</td>';
     if ($_SESSION["role"] === 'admin') {
-        echo '<td><form action="#">
-                    <input type="submit" name="delete-contest-btn" id="" value="Törlés">
+        echo '<td><form action="includes/deleteContest.inc.php" method="POST">
                     <input type="hidden" name="id-to-delete" value="'.$row["CONTEST_ID"].'">
+                    <input type="submit" name="delete-contest-btn" id="" value="Törlés">
                     </form></td>';
     }
     echo '</tr>';

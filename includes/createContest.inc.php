@@ -28,8 +28,7 @@ if(isset($_POST["contest-create-btn"])) {
         trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     } else {
         oci_free_statement($stmt);
-        //echo $contestStart;
-        //header("Location: ../adminPage.php?create_contest=success");
+        header("Location: ../adminPage.php?create_contest=success");
         exit();
     }
 } else {
