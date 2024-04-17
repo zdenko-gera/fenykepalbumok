@@ -34,11 +34,11 @@ if(isset($_GET["create_location"])) {
 }
 
 ?>
-<h2>Hozd létre az első fotóalbumodat nálunk!</h2>
+<h2>Tölts fel képeket, és indulj fotópályázatokon még ma!</h2>
 
 <?php
 if(isset($_SESSION["username"])) {
-    echo '<a href="createCategory.php" class="btn-w-padding">Létrehozom!</a>';
+    echo '<a href="uploadImage.php" class="btn-w-padding">Feltöltés</a>';
 } else {
     echo '<a href="login.php" class="btn-w-padding">Létrehozom!</a>';
 }

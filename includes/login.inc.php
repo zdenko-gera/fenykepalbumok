@@ -21,6 +21,7 @@ if(isset($_POST["login-btn"])) {
 
             if (password_verify($pwd, $row["PASSWORD"])) {
                 session_start();
+                $_SESSION["userID"] = $row["USER_ID"];
                 $_SESSION["username"] = $row["USERNAME"];
                 $_SESSION["email"] = $row["EMAIL"];
                 $_SESSION["role"] = $row["ROLE"];

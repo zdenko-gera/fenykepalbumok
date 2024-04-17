@@ -7,15 +7,17 @@
             <div id="navbar-links-container">
                 <?php
                     if(isset($_SESSION["username"])) {
-                        echo '<span id="navbar-username">'.$_SESSION["username"].'</span>';
+                        echo '<a href="myProfile.php" id="navbar-username">'.$_SESSION["username"].'</a>';
                         if($_SESSION["role"] === 'admin') {
                             echo '<a href="adminPage.php" class="navbar-link">ADMIN-OLDAL</a>';
                         }
+                        echo '<a href="uploadImage.php" class="navbar-link">Képfeltöltés</a>';
                         echo '<a href="contests.php" class="navbar-link">Fotópályázatok</a>';
                         echo '<a href="locations.php" class="navbar-link">Helyszínek</a>';
                         echo '<a href="categories.php" class="navbar-link">Kategóriák</a>';
                         echo '<a href="includes/logout.inc.php" class="navbar-link">Kijelentkezés</a>';
                     } else {
+                        echo '<a href="login.php" class="navbar-link">Képfeltöltés</a>';
                         echo '<a href="locations.php" class="navbar-link">Helyszínek</a>';
                         echo '<a href="categories.php" class="navbar-link">Kategóriák</a>';
                         echo '
