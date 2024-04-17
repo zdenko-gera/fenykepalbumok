@@ -32,8 +32,6 @@ while ( $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
 }
 ?>
 
-<tr><td></td><td><a href="createCategory.php"><img src="icons/plus-round-line-icon.svg" alt="plusz-jel" id="add-category-plus-icon"></a></td></tr>
-
 <?php
 echo '</table>';
 
