@@ -1,16 +1,16 @@
 <?php
 require("db-conn.php");
 if(isset($_POST["create-btn"])) {
-    if(empty($_POST["comment-name"])) {
+    if(empty($_POST["rating-name"])) {
         header("Location: ../createComment.php?error=emptyfields");
         exit();
     }
 
-    $commentName = $_POST["comment-name"];
+    $categoryName = $_POST["rating-name"];
 
-    $sql= 'INSERT INTO COMMENTS (CONTENT) VALUES (:commentName)';
+    $sql= 'INSERT INTO PHOTORATING (RATING) VALUES (:ratingName)';
     $stmt = oci_parse($conn, $sql);
-    oci_bind_by_name($stmt,':commentName',$commentName);
+    oci_bind_by_name($stmt,':ratingName',$ratingName);
 
 
     oci_execute($stmt);
@@ -26,3 +26,4 @@ if(isset($_POST["create-btn"])) {
 } else {
     echo 'Hozzáférés megtagadva!';
 }
+

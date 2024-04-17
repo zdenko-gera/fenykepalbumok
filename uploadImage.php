@@ -13,7 +13,7 @@ if (!isset($_SESSION["username"])) {
 }
 ?>
 
-<h2>Képfeltöltés</h2>
+<h2>Képfeltöltéss</h2>
 
 <form action="uploadImage.inc.php" class="login-reg-form" method="POST" enctype="multipart/form-data">
     <input type="text" name="image-title" placeholder="Kép címe">

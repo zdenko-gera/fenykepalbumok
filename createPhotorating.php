@@ -13,16 +13,16 @@ if (!isset($_SESSION["username"])) {
 }
 ?>
 
-
+<h2>Kép értékelések</h2>
 <?php
 if(isset($_GET["error"])) {
     if($_GET["error"] == "emptyfields") {
-        echo "<div class='error-msg'>Adjon meg egy kommentet</div>";
+        echo "<div class='error-msg'></div>";
     }
 }
 ?>
 <form action="includes/createCategory.inc.php" class="login-reg-form" method="POST">
-    <input type="text" name="category-name" placeholder="Komment">
+    <input type="text" name="comment-name" placeholder="értékelés">
     <input type="submit" name="create-btn" value="Létrehozom">
 </form>
 

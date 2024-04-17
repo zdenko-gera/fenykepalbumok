@@ -11,6 +11,7 @@
 
 echo '<h2>Kategóriák</h2>';
 echo '<table id="categories-table">';
+
 $stid = oci_parse($conn, 'SELECT * FROM CATEGORIES');
 
 oci_execute($stid);

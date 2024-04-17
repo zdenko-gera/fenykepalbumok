@@ -13,11 +13,15 @@
                         }
                         echo '<a href="uploadImage.php" class="navbar-link">Képfeltöltés</a>';
                         echo '<a href="contests.php" class="navbar-link">Fotópályázatok</a>';
+                        echo '<a href="comments.php" class="navbar-link">Kommentek</a>';
                         echo '<a href="locations.php" class="navbar-link">Helyszínek</a>';
+                        echo '<a href="photorating.php" class="navbar-link">Kép értékelés</a>';
                         echo '<a href="categories.php" class="navbar-link">Kategóriák</a>';
                         echo '<a href="includes/logout.inc.php" class="navbar-link">Kijelentkezés</a>';
                     } else {
                         echo '<a href="login.php" class="navbar-link">Képfeltöltés</a>';
+                        echo '<a href="comments.php" class="navbar-link">Kommentek</a>';
+                        echo '<a href="photorating.php" class="navbar-link">Kép értékelés</a>';
                         echo '<a href="locations.php" class="navbar-link">Helyszínek</a>';
                         echo '<a href="categories.php" class="navbar-link">Kategóriák</a>';
                         echo '

@@ -21,7 +21,7 @@ if(isset($_GET["error"])) {
     }
 }
 ?>
-<form action="includes/createCategory.inc.php" class="login-reg-form" method="POST">
+<form action="includes/createComment.php" class="login-reg-form" method="POST">
     <input type="text" name="comment-name" placeholder="Komment">
     <input type="submit" name="create-btn" value="Létrehozom">
 </form>
