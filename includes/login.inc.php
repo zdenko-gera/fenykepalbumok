@@ -23,7 +23,7 @@ if(isset($_POST["login-btn"])) {
                 session_start();
                 $_SESSION["username"] = $row["USERNAME"];
                 $_SESSION["email"] = $row["EMAIL"];
-                $_SESSION["role"] = 'user';
+                $_SESSION["role"] = $row["ROLE"];
 
                 header("Location: ../main.php?login=success");
                 exit();

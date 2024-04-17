@@ -29,7 +29,7 @@ if(isset($_POST["register-btn"])) {
     $pwd = $_POST["pwd"];
     $repwd = $_POST["repwd"];
     $pwdHash = password_hash($pwd, PASSWORD_DEFAULT);
-    $role = "user";
+    $role = "admin";
 
 
 

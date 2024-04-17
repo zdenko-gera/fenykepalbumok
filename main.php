@@ -27,6 +27,11 @@ if(isset($_GET["create_category"])) {
         echo "<div class='success-msg'>Kategória létrehozva!</div>";
     }
 }
+if(isset($_GET["create_location"])) {
+    if($_GET["create_location"] == "success") {
+        echo "<div class='success-msg'>Helyszín hozzáadva!</div>";
+    }
+}
 
 ?>
 <h2>Hozd létre az első fotóalbumodat nálunk!</h2>

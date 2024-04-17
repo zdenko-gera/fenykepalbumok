@@ -19,10 +19,10 @@ if(isset($_POST["create-btn"])) {
         $e = oci_error($conn);
         trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
     } else {
+        oci_free_statement($stmt);
         header("Location: ../main.php?create_category=success");
         exit();
     }
-    oci_free_statement($stmt);
 } else {
     echo 'Hozzáférés megtagadva!';
 }

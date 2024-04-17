@@ -1,0 +1,10 @@
+#admin-menu {
+    width: fit-content;
+    margin-inline: auto;
+}
+
+.admin-menu-element {
+    border: 1px solid lightblue;
+    width: fit-content;
+    margin-inline: auto;
+}
