@@ -46,6 +46,6 @@ if(isset($_POST["upload-btn"])) {
         }
     }
 } else {
-    echo 'Hozzáférés megtagadva!';
+    echo 'Hozzáférés megtagadva!!';
 }
 ?>
