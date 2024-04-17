@@ -9,7 +9,7 @@
                     if(isset($_SESSION["username"])) {
                         echo '<span id="navbar-username">'.$_SESSION["username"].'</span>';
                         if($_SESSION["role"] === 'admin') {
-                            echo '<a href="admin/adminPage.php" class="navbar-link">ADMIN-OLDAL</a>';
+                            echo '<a href="adminPage.php" class="navbar-link">ADMIN-OLDAL</a>';
                         }
                         echo '<a href="contests.php" class="navbar-link">Fotópályázatok</a>';
                         echo '<a href="locations.php" class="navbar-link">Helyszínek</a>';

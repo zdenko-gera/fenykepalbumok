@@ -24,7 +24,7 @@ if(isset($_GET["create_contest"])) {
 
 <div id="admin-menu">
     <div class="admin-menu-element">
-    <h3>Pályázat kiírása</h3>
+    <h3>Új pályázat kiírása:</h3>
 
     <form action="includes/createContest.inc.php" method="POST" class="login-reg-form">
         <input type="text" name="contest-name" placeholder="Pályázat címe">
