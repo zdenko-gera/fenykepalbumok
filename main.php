@@ -6,6 +6,7 @@
 <body>
 <?php
 include_once('partials/navbar.php');
+require('includes/db-conn.php');
 
 if(isset($_GET["signup"])) {
     if($_GET["signup"] == "success") {
@@ -47,15 +48,24 @@ if(isset($_SESSION["username"])) {
 } else {
     echo '<a href="login.php" class="btn-w-padding">Létrehozom!</a>';
 }
+
+$stid = oci_parse($conn, 'SELECT * FROM IMAGES');
+oci_execute($stid);
+
+
 ?>
 
 <div class="content-wrapper">
-    <div>
-        <img src="" alt="fenykep">
-        <p>fenykep cime</p>
-        <p>kategoria</p>
-        <p>helyszín</p>
-    </div>
+    <?php
+        while ( $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+            echo '<div class="main-page-image-wrapper">';
+            echo '<img src="uploadedImages/uploadedImg-'.$row["IMAGE_ID"].'.jpg" alt="foto" class="my-photo">';
+            echo '<p>'.$row["TITLE"].'</p>';
+            echo '<p> Kat: '.$row["CATEGORY_ID"].'</p>';
+            echo '<p> Hely: '.$row["LOCATION_ID"].'</p>';
+            echo '</div>';
+        }
+    ?>    
 </div>
 
 

@@ -62,7 +62,7 @@ if(isset($_POST["upload-btn"])) {
             oci_execute($stmt);
 
 
-            //header("Location: ../uploadImage.php?upload=success");
+            header("Location: ../uploadImage.php?upload=success");
 
         } else {
             echo "Hiba történt a fájl feltöltése közben.";

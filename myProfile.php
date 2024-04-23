@@ -11,6 +11,8 @@ include_once('partials/navbar.php');
 require_once('includes/db-conn.php');
 
 echo '<h2>Fényképeim</h2>';
+$stid = oci_parse($conn, 'delete from images where image_id < 41');
+oci_execute($stid);
 $stid = oci_parse($conn, 'SELECT * FROM IMAGES WHERE USER_ID = '. $_SESSION["userID"]);
 oci_execute($stid);
 while ( $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {

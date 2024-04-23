@@ -103,7 +103,25 @@ footer {
 }
 
 .content-wrapper {
-    width: 70dvw;
+    width: 85dvw;
     height: fit-content;
     margin-inline: auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.my-photo {
+    width: 15dvw;
+    height: 15dvw;
+    border-top-left-radius: 0.5dvh;
+    border-top-right-radius: 0.5dvh;
+}
+
+.main-page-image-wrapper {
+    width: 15dvw;
+    background-color: white;
+    border-radius: 0.5dvh;
+    box-shadow: grey 0px 0px 0.5dvh;
+    margin: 1dvw;
 }
