@@ -16,9 +16,8 @@ if(isset($_POST["upload-btn"])) {
         $uploadOk = 0;
     }
 
-    if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
-        && $imageFileType != "gif") {
-        //echo "Csak JPG, JPEG, PNG és GIF fájlokat lehet feltölteni.";
+    if ($imageFileType != "jpg") {
+        echo "Csak JPG fájlokat lehet feltölteni.";
         $uploadOk = 0;
     }
 

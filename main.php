@@ -49,6 +49,15 @@ if(isset($_SESSION["username"])) {
 }
 ?>
 
+<div class="content-wrapper">
+    <div>
+        <img src="" alt="fenykep">
+        <p>fenykep cime</p>
+        <p>kategoria</p>
+        <p>helyszín</p>
+    </div>
+</div>
+
 
 <?php
     include_once('partials/footer.php');
