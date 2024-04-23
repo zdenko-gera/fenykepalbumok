@@ -46,10 +46,10 @@ if(isset($_GET["create_location"])) {
 if(isset($_SESSION["username"])) {
     echo '<a href="uploadImage.php" class="btn-w-padding">Feltöltés</a>';
 } else {
-    echo '<a href="login.php" class="btn-w-padding">Létrehozom!</a>';
+    echo '<a href="login.php" class="btn-w-padding">Feltöltés</a>';
 }
 
-$stid = oci_parse($conn, 'SELECT * FROM IMAGES');
+$stid = oci_parse($conn, 'SELECT * FROM LOCATIONS INNER JOIN IMAGES ON LOCATIONS.LOCATION_ID = IMAGES.LOCATION_ID INNER JOIN CATEGORIES ON IMAGES.CATEGORY_ID = CATEGORIES.CATEGORY_ID ');
 oci_execute($stid);
 
 
@@ -58,12 +58,12 @@ oci_execute($stid);
 <div class="content-wrapper">
     <?php
         while ( $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-            echo '<div class="main-page-image-wrapper">';
+            echo '<a href="image.php?id='.$row["IMAGE_ID"].'" class="main-page-image-wrapper">';
             echo '<img src="uploadedImages/uploadedImg-'.$row["IMAGE_ID"].'.jpg" alt="foto" class="my-photo">';
             echo '<p>'.$row["TITLE"].'</p>';
-            echo '<p> Kat: '.$row["CATEGORY_ID"].'</p>';
-            echo '<p> Hely: '.$row["LOCATION_ID"].'</p>';
-            echo '</div>';
+            echo '<p> Kat: '.$row["CATEGORY_NAME"].'</p>';
+            echo '<p> Hely: '.$row["LOCATION_NAME"].'</p>';
+            echo '</a>';
         }
     ?>    
 </div>

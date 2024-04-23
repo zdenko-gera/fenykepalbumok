@@ -13,8 +13,8 @@ if (!isset($_SESSION["username"])) {
     exit();
 }
 if(isset($_GET["upload"])) {
-    if($_GET["upload"] == "succes") {
-        echo "<div class='error-msg'>Sikeres képfeltöltés!</div>";
+    if($_GET["upload"] == "success") {
+        echo "<div class='success-msg'>Sikeres képfeltöltés!</div>";
     }
 }
 ?>
