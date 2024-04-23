@@ -45,7 +45,7 @@ oci_execute($stid);
                   ';
         }
     oci_free_statement($stid);
-
+    
     $stid = oci_parse($conn, 'SELECT ROUND(AVG(RATING),2) AS AVG_RATING, COUNT(ID) AS COUNT_OF_ID FROM PHOTORATING WHERE PHOTOID = :imageID');
     oci_bind_by_name($stid, ':imageID', $imageID);
     oci_execute($stid);
@@ -55,6 +55,8 @@ oci_execute($stid);
 
     </div>
     </div>
+    <?php
+    if (isset($_SESSION["username"])) { ?>
     <div id="image-site-rating-wrapper">
         <h2>Értékelés:</h2>
         <?php
@@ -68,6 +70,7 @@ oci_execute($stid);
         ';
         ?>
     </div>
+    <?php } ?>
     <div id="image-site-comments-wrapper">
         <h2>Hozzászólások:</h2>
         <?php
@@ -76,7 +79,6 @@ oci_execute($stid);
             oci_execute($stid);
 
             //kommentek kiíratássa
-            if (isset($_SESSION["username"])) {
                 while ( $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
                 echo '<div class="comment-container">
                         <p class="comment-author">'.$row["USERNAME"].'</p>
@@ -84,7 +86,8 @@ oci_execute($stid);
                         <p class="comment-date">'.$row["COMMENT_DATE"].'</p>
                       </div>';
                 }
-
+                
+                if (isset($_SESSION["username"])) {
                 echo '
                 <div id="add-comment-container">
                 <form action="includes/createComment.inc.php" class="comment-container" method="POST">
