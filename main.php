@@ -2,6 +2,7 @@
 <head>
     <title>Fényképalbumok</title>
     <link rel="stylesheet" href="styles/common.css">
+    <link rel="icon" href="staticImages/album-icon.png">
 </head>
 <body>
 <?php
@@ -38,18 +39,22 @@ if(isset($_GET["create_location"])) {
         echo "<div class='success-msg'>Helyszín hozzáadva!</div>";
     }
 }
-
 ?>
-<h2>Tölts fel képeket, és indulj fotópályázatokon még ma!</h2>
+
+<img src="staticImages/landing-image.jpg" alt="hegyek-háttér" id="landing-img">
+
+<div id="text-over-landing-img">
+    <p>Tölts fel képeket, és indulj fotópályázatokon még ma!</p>
+    <?php
+    if(isset($_SESSION["username"])) {
+        echo '<a href="uploadImage.php" class="btn-w-padding" id="jumo-to-main-page-btn">Feltöltés</a>';
+    } else {
+        echo '<a href="login.php" class="btn-w-padding" id="jumo-to-main-page-btn">Feltöltés</a>';
+    }?>
+</div>
 
 <?php
-if(isset($_SESSION["username"])) {
-    echo '<a href="uploadImage.php" class="btn-w-padding">Feltöltés</a>';
-} else {
-    echo '<a href="login.php" class="btn-w-padding">Feltöltés</a>';
-}
-
-$stid = oci_parse($conn, 'SELECT * FROM LOCATIONS INNER JOIN IMAGES ON LOCATIONS.LOCATION_ID = IMAGES.LOCATION_ID INNER JOIN CATEGORIES ON IMAGES.CATEGORY_ID = CATEGORIES.CATEGORY_ID ');
+$stid = oci_parse($conn, 'SELECT * FROM LOCATIONS INNER JOIN IMAGES ON LOCATIONS.LOCATION_ID = IMAGES.LOCATION_ID INNER JOIN CATEGORIES ON IMAGES.CATEGORY_ID = CATEGORIES.CATEGORY_ID');
 oci_execute($stid);
 
 
