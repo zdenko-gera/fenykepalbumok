@@ -7,18 +7,47 @@
 <body>
 <?php
 include_once('partials/navbar.php');
+require('includes/db-conn.php');
 if (!isset($_SESSION["username"])) {
     header("Location: login.php");
     exit();
 }
+if(isset($_GET["upload"])) {
+    if($_GET["upload"] == "succes") {
+        echo "<div class='error-msg'>Sikeres képfeltöltés!</div>";
+    }
+}
 ?>
 
-<h2>Képfeltöltéss</h2>
+<h2>Képfeltöltés</h2>
 
-<form action="uploadImage.inc.php" class="login-reg-form" method="POST" enctype="multipart/form-data">
+<form action="includes/uploadImage.inc.php" class="login-reg-form" method="POST" enctype="multipart/form-data">
     <input type="text" name="image-title" placeholder="Kép címe">
-    <input type="text" name="image-category" placeholder="Kép kategóriája">
-    <input type="text" name="image-location" placeholder="Kép helyszíne">
+    <select name="image-location">
+      <option disabled selected value>Válassz helyszínt!</option>
+      <?php 
+      $stid = oci_parse($conn, 'SELECT * FROM LOCATIONS');
+      oci_execute($stid);
+
+      while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+        echo '<option value="'.htmlspecialchars($row['LOCATION_ID']).'">'.htmlspecialchars($row['LOCATION_NAME']).'</option>';
+      }
+      ?>
+    </select>
+
+
+    <select name="image-category">
+      <option disabled selected value>Válassz kategóriát!</option>
+      <?php 
+      $stid = oci_parse($conn, 'SELECT * FROM CATEGORIES');
+      oci_execute($stid);
+
+      while ($row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
+        echo '<option value="'.htmlspecialchars($row['CATEGORY_ID']).'">'.htmlspecialchars($row['CATEGORY_NAME']).'</option>';
+      }
+      ?>
+    </select>
+
     <?php
     echo '
     <input type="hidden" name="image-owner" value="'.$_SESSION["userID"].'">

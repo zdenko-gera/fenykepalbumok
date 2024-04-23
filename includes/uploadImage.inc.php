@@ -1,5 +1,5 @@
 <?php
-require("includes/db-conn.php");
+require("db-conn.php");
 
 if(isset($_POST["upload-btn"])) {
     $targetDir = "uploadedImages/";  // A feltöltött képek mappája
@@ -33,13 +33,37 @@ if(isset($_POST["upload-btn"])) {
         $nextID = $maxID+1;
 
 
-        if (move_uploaded_file($_FILES["image"]["tmp_name"], 'uploadedImages/uploadedImg-'.$nextID .'.'.$imageFileType)) {
-            echo "A fájl " . basename($_FILES["image"]["name"]) . " sikeresen feltöltve.";
+        if (move_uploaded_file($_FILES["image"]["tmp_name"], '../uploadedImages/uploadedImg-'.$nextID .'.'.$imageFileType)) {
+            
 
             // Itt mentheted az elérési utat az adatbázisban, ha szükséges
             // Például:
             // $imageUrl = $targetDir . basename($_FILES["fileToUpload"]["name"]);
             // ... SQL INSERT művelet a kép elérési útjának mentésére ...
+            $imagePath = 'uploadedImg-'.$nextID.'.'.$imageFileType;
+            $uploadDate = date("Y-m-d");
+            $userID = $_POST["image-owner"];
+            $title = $_POST["image-title"];
+            $locationID = $_POST["image-location"];
+            $categoryID = $_POST["image-category"];
+            $ownerEmail = $_POST["image-owner-email"];
+
+            echo $imagePath .'\n'.$uploadDate.'\n'.$userID.'\n'.$title.'\n'.$locationID.'\n'.$categoryID.'\n'.$ownerEmail;
+
+            $sql = "INSERT INTO IMAGES (IMAGE_PATH, UPLOAD_DATE, USER_ID, TITLE, LOCATION_ID, CATEGORY_ID, OWNER_EMAIL) VALUES (:imagePath, TO_DATE(:uploadDate,'YYYY-MM-DD'), :userID, :title, :locationID, :categoryID, :ownerEmail)";
+            $stmt = oci_parse($conn, $sql);
+            oci_bind_by_name($stmt,':imagePath',$imagePath);
+            oci_bind_by_name($stmt,':uploadDate',$uploadDate);
+            oci_bind_by_name($stmt,':userID',$userID);
+            oci_bind_by_name($stmt,':title',$title);
+            oci_bind_by_name($stmt,':locationID',$locationID);
+            oci_bind_by_name($stmt,':categoryID',$categoryID);
+            oci_bind_by_name($stmt,':ownerEmail',$ownerEmail);
+
+            oci_execute($stmt);
+
+
+            //header("Location: ../uploadImage.php?upload=success");
 
         } else {
             echo "Hiba történt a fájl feltöltése közben.";
