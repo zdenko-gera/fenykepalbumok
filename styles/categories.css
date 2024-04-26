@@ -17,3 +17,7 @@
     width: 2dvw;
     margin-inline: auto;
 }
+
+.top-three-images {
+    justify-content: center;
+}
