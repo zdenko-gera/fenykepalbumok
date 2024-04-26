@@ -25,15 +25,26 @@ $top = oci_parse($conn, 'SELECT * FROM (SELECT IMAGES.IMAGE_PATH, IMAGES.IMAGE_I
 oci_bind_by_name($top,':categoryID',$categoryID);
 oci_execute($top);
 
-echo '<div class="content-wrapper">';
+echo '<div class="content-wrapper top-three-images">';
+while ( $row = oci_fetch_array($top, OCI_ASSOC + OCI_RETURN_NULLS)) {
+    echo '<a href="image.php?id='.$row["IMAGE_ID"].'" class="main-page-image-wrapper">';
+    echo '<img src="uploadedImages/'.$row["IMAGE_PATH"].'" alt="foto" class="my-photo">';
+    echo '<p>Értékelés: '.$row["AVG_RATING"].'</p>';
+    echo '</a>';
+}
 echo '</div>';
 oci_free_statement($top);
 
+//képek darabszáma az adott kategóriában:
+$countPerCategoryStmt = oci_parse($conn, 'SELECT COUNT(IMAGE_ID) AS CNT_OF_IMG_IN_CATEGORY FROM IMAGES  WHERE IMAGES.CATEGORY_ID = :categoryID ');
+
+oci_bind_by_name($countPerCategoryStmt,':categoryID',$categoryID);
+oci_execute($countPerCategoryStmt);
+$countPerCategory = oci_fetch_array($countPerCategoryStmt, OCI_ASSOC + OCI_RETURN_NULLS)["CNT_OF_IMG_IN_CATEGORY"];
+oci_free_statement($countPerCategoryStmt);
 
 
 
-
-$categoryID = $_GET["category_id"];
 $stmt = oci_parse($conn, 'SELECT IMAGES.IMAGE_PATH, IMAGES.IMAGE_ID, ROUND(AVG(PHOTORATING.RATING),2) AS AVG_RATING FROM IMAGES LEFT JOIN photorating ON IMAGES.IMAGE_ID = PHOTORATING.PHOTOID WHERE IMAGES.CATEGORY_ID = :categoryID GROUP BY IMAGES.IMAGE_PATH, IMAGES.IMAGE_ID');
 
 oci_bind_by_name($stmt,':categoryID',$categoryID);
@@ -43,6 +54,7 @@ if (!oci_execute($stmt)) {
 }
 
 echo '<h2>További képeink a(z) <b>' . $categoryDetails["CATEGORY_NAME"] . '</b> témában:</h2>';
+echo '<p>Képek a kategóriában: '.$countPerCategory.' db</p>';
 
 echo '<div class="content-wrapper">';
 while ( $row = oci_fetch_array($stmt, OCI_ASSOC + OCI_RETURN_NULLS)) {

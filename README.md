@@ -8,4 +8,4 @@
 ~Módosítottam az adatbázist létrehozó scripten (***sql_triggerekkel.txt***), dobtam bele triggereket, meg sequence-eket, hogy a MySQL-hez hasonló AUTO_INCREMENT funkció működjön az ID-ken.
 
 
-~***images*** mappa a feltöltött fotóknak van fenntartva.
+~***uploadedImages*** mappa a feltöltött fotóknak van fenntartva.

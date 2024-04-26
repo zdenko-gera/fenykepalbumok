@@ -19,7 +19,7 @@ oci_execute($stid);
 while ( $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
     echo '<tr>';
     echo '<td>'.$row["LOCATION_ID"].'</td>';
-    echo '<td><a href="category.php?category_id='.$row["LOCATION_ID"].'">' . $row["LOCATION_NAME"] . '</a></td>';
+    echo '<td><a href="location.php?location_id='.$row["LOCATION_ID"].'">' . $row["LOCATION_NAME"] . '</a></td>';
     echo '<td>'.$row["COUNTRY"].'</td>
             <td>'.$row["COUNTY"].'</td>
             <td>'.$row["CITY"].'</td>';
