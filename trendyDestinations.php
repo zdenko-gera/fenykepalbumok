@@ -18,7 +18,7 @@ echo '<div id="trendy-dests-wrapper">';
 while ( $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
     echo '<a href="location.php?location_id='.$row["LOCATION_ID"].'" class="trendy-dest">';
     echo '<h2>'.$row["LOCATION_NAME"].'</h2>';
-    echo '<p>'.$row["CNT_OF_LOCS"].' feltöltés</p>';
+    echo '<p>'.$row["CNT_OF_LOCS"].' vidéki feltöltés</p>';
     echo '</a>';
 }
 echo '</div>';
