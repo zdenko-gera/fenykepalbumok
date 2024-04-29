@@ -28,6 +28,10 @@ require_once('includes/db-conn.php');
       }
       ?>
     </select>
+    <label>
+        <input type="checkbox" name="admin" value="1">
+        Adminként regisztrálok!
+    </label>
     <input type="submit" name="register-btn" value="Regisztrálok">
 </form>
 

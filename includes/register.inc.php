@@ -33,7 +33,7 @@ if(isset($_POST["register-btn"])) {
     $pwd = $_POST["pwd"];
     $repwd = $_POST["repwd"];
     $pwdHash = password_hash($pwd, PASSWORD_DEFAULT);
-    $role = "user";
+    $role = isset($_POST["admin"]) ? "admin" : "user";
     $locationID = $_POST["location"];
 
 

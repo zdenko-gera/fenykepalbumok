@@ -15,14 +15,14 @@
 $tns = "
 (DESCRIPTION =
     (ADDRESS_LIST =
-      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1500))
+      (ADDRESS = (PROTOCOL = TCP)(HOST = localhost)(PORT = 1521))
     )
     (CONNECT_DATA =
       (SID = xe)
     )
   )";
 
-$conn = oci_connect('ZDENKO','palacsinta', $tns, 'UTF8');
+$conn = oci_connect('ABEL','1234', $tns, 'UTF8');
 if (!$conn) {
     $e = oci_error();
     trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);

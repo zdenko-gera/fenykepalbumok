@@ -26,6 +26,10 @@ if(isset($_GET["error"])) {
     if($_GET["error"] == "emptyfields_norating") {
         echo "<div class='error-msg'>Add meg az értékelést!</div>";
     }
+    if($_GET["error"] == "already_rated") {
+        echo "<div class='error-msg'>Már értékelted ezt a fotót!</div>";
+    }
+
 }
 
 $imageID = $_GET["id"];
