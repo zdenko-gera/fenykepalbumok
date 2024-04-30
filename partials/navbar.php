@@ -16,10 +16,12 @@
                         echo '<a href="contests.php" class="navbar-link">Fotópályázatok</a>';
                         echo '<a href="locations.php" class="navbar-link">Helyszínek</a>';
                         echo '<a href="trendyDestinations.php" class="navbar-link">Népszerű úticélok</a>';
+                        echo '<a href="stat.php" class="navbar-link">Statisztika</a>';
                         echo '<a href="categories.php" class="navbar-link">Kategóriák</a>';
                         echo '<a href="includes/logout.inc.php" class="navbar-link">Kijelentkezés</a>';
                     } else {
                         echo '<a href="login.php" class="navbar-link">Képfeltöltés</a>';
+                        echo '<a href="stat.php" class="navbar-link">Statisztika</a>';
                         echo '<a href="locations.php" class="navbar-link">Helyszínek</a>';
                         echo '<a href="trendyDestinations.php" class="navbar-link">Népszerű úticélok</a>';
                         echo '<a href="categories.php" class="navbar-link">Kategóriák</a>';

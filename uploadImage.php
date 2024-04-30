@@ -15,6 +15,9 @@ if (!isset($_SESSION["username"])) {
 if(isset($_GET["upload"])) {
     if($_GET["upload"] == "success") {
         echo "<div class='success-msg'>Sikeres képfeltöltés!</div>";
+            $sql_increment_images = "UPDATE USERS SET UPLOADED_IMAGES = UPLOADED_IMAGES + 1  WHERE USER_ID = '" . $_SESSION["userID"] . "'";
+            $statement_increment_images = oci_parse($conn, $sql_increment_images);
+            oci_execute($statement_increment_images);
     }
 }
 ?>

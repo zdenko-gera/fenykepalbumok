@@ -10,4 +10,4 @@ $tns = "
     )
   )";
 
-$conn = oci_connect('ABEL','1234', $tns, 'UTF8');
+$conn = oci_connect('ATTILA','oracle', $tns, 'UTF8');
