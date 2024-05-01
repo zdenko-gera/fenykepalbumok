@@ -6,31 +6,38 @@
 </head>
 <body>
 <?php
-    include_once('partials/navbar.php');
-    require_once('includes/db-conn.php');
+include_once('partials/navbar.php');
+require_once('includes/db-conn.php');
 
-echo '<h2>Kategóriák</h2>';
-echo '<table id="categories-table">';
+echo '<h2>Kategóriák<h2>';
 
-$stid = oci_parse($conn, 'SELECT * FROM CATEGORIES');
-
-oci_execute($stid);
-while ( $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
-    echo '<tr>';
-    echo '<td>'.$row["CATEGORY_ID"].'</td>';
-        echo '<td><a href="category.php?category_id='.$row["CATEGORY_ID"].'">' . $row["CATEGORY_NAME"] . '</a></td>';
-    echo '</tr>';
+$stid = oci_parse($conn, 'BEGIN list_categories_data; END;');
+if (!$stid) {
+    $m = oci_error($conn);
+    trigger_error(htmlentities($m['message']), E_USER_ERROR);
 }
-?>
 
-<tr><td></td><td><a href="createCategory.php"><img src="icons/plus-round-line-icon.svg" alt="plusz-jel" id="add-category-plus-icon"></a></td></tr>
+// Engedélyezzük a DBMS_OUTPUT használatát
+$s = oci_parse($conn, 'begin dbms_output.enable; end;');
+if(oci_execute($s)){
+    if(oci_execute($stid)){
+        // Lekérdezzük a DBMS_OUTPUT-ból az adatokat
+        $s = oci_parse($conn, 'begin dbms_output.get_line(:ln, :st); end;');
+        oci_bind_by_name($s, ":ln", $ln, 32767);
+        oci_bind_by_name($s, ":st", $st);
 
-<?php
-echo '</table>';
+        echo '<table id="categories-table">';
+        while (($succ = oci_execute($s)) && !$st){
+            echo '<tr><td>' . $ln . '</td></tr>';
+        }
+        echo '</table>';
+    }
+}
 
+oci_free_statement($stid);
+oci_close($conn);
 
-
-    include_once('partials/footer.php');
+include_once('partials/footer.php');
 ?>
 </body>
 </html>
