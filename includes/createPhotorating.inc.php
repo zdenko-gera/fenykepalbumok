@@ -10,41 +10,30 @@ if(isset($_POST["create-btn"])) {
         exit();
     }
 
-    $sqlfelt = "SELECT * FROM PHOTORATING WHERE RATINGUSERID = :ratingUser";
+    // Ellenőrzés, hogy a felhasználó már értékelte-e a képet
+    $sqlCheckRated = "SELECT * FROM PHOTORATING WHERE RATINGUSERID = :ratingUser AND PHOTOID = :imageID";
+    $stmtCheckRated = oci_parse($conn, $sqlCheckRated);
+    oci_bind_by_name($stmtCheckRated, ':ratingUser', $ratingUser);
+    oci_bind_by_name($stmtCheckRated, ':imageID', $imageID);
+    oci_execute($stmtCheckRated);
 
-    $stmt1 = oci_parse($conn, $sqlfelt);
-
-    oci_bind_by_name($stmt1, ':ratingUser', $ratingUser);
-
-    oci_execute($stmt1);
-
-    if (!$row = oci_fetch_assoc($stmt1)) {
-        $rating = $_POST["rating"];
-
-        $sql= 'INSERT INTO PHOTORATING (PHOTOID, RATINGUSERID, RATING) VALUES (:imageID, :ratingUser, :rating)';
-        $stmt = oci_parse($conn, $sql);
-
-        oci_bind_by_name($stmt,':imageID',$imageID);
-        oci_bind_by_name($stmt,':ratingUser',$ratingUser);
-        oci_bind_by_name($stmt,':rating',$rating);
-
-
-        oci_execute($stmt);
-
-        if (!$stmt) {
-            $e = oci_error($conn);
-            trigger_error(htmlentities($e['message'], ENT_QUOTES), E_USER_ERROR);
-        } else {
-            oci_free_statement($stmt);
-            header("Location: ../image.php?id=" . $imageID . "&photorating=success");
-            exit();
-        }
-    } else {
-        header("Location: ../image.php?id=" . $imageID. "&error=already_rated");
+    // Ha már van értékelése a felhasználónak a képhez, akkor hibaüzenet
+    if(oci_fetch($stmtCheckRated)) {
+        header("Location: ../image.php?id=" . $imageID . "&error=already_rated");
+        exit();
     }
 
+    // Ha még nincs értékelése, akkor az új értékelés létrehozása
+    $rating = $_POST["rating"];
+    $sqlCreateRating = "INSERT INTO PHOTORATING (PHOTOID, RATINGUSERID, RATING) VALUES (:imageID, :ratingUser, :rating)";
+    $stmtCreateRating = oci_parse($conn, $sqlCreateRating);
+    oci_bind_by_name($stmtCreateRating, ':imageID', $imageID);
+    oci_bind_by_name($stmtCreateRating, ':ratingUser', $ratingUser);
+    oci_bind_by_name($stmtCreateRating, ':rating', $rating);
 
-} else {
-    echo 'Hozzáférés megtagadva!';
+    oci_execute($stmtCreateRating);
+
+    header("Location: ../image.php?id=" . $imageID . "&photorating=success");
+    exit();
 }
-
+?>

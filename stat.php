@@ -21,19 +21,28 @@ $total_users = $row_users['TOTAL_USERS'];
 echo '<div id="trendy-dests-wrapper">';
 echo '<h2>Felhasználók</h2>';
 echo '<p>Az összes felhasználó a fényképalbum alkalmazásban: ' . $total_users . '</p>';
+$sql_uploaders_with_images = "SELECT u.USER_ID, u.USERNAME, COUNT(i.IMAGE_ID) AS num_images
+                    FROM USERS u
+                    INNER JOIN IMAGES i ON u.USER_ID = i.USER_ID
+                    GROUP BY u.USER_ID, u.USERNAME
+                    ORDER BY num_images DESC";
+$statement_uploaders_with_images = oci_parse($conn, $sql_uploaders_with_images);
+oci_execute($statement_uploaders_with_images);
 
-$sql_top_uploader = "SELECT USER_ID, USERNAME, UPLOADED_IMAGES FROM USERS 
-                    ORDER BY UPLOADED_IMAGES DESC 
-                    FETCH FIRST 1 ROWS ONLY";
-$statement_top_uploader = oci_parse($conn, $sql_top_uploader);
-oci_execute($statement_top_uploader);
-$row_top_uploader = oci_fetch_assoc($statement_top_uploader);
-$top_uploader_user_id = $row_top_uploader['USER_ID'];
-$top_uploader_username = $row_top_uploader['USERNAME'];
-$top_uploaded_images = $row_top_uploader['UPLOADED_IMAGES'];
+echo '<div>';
+echo '<table id="categories-table">';
+echo '<tr><th>Felhasználónév</th><th>Feltöltött képek száma</th></tr>';
+while ($row = oci_fetch_assoc($statement_uploaders_with_images)) {
+    echo '<tr>';
+    echo '<td><a href="stat_pics.php?user_id=' . $row["USER_ID"] . '">' . $row["USERNAME"] . '</a></td>';
+    echo '<td>' . $row["NUM_IMAGES"] . '</td>';
+    echo '</tr>';
+}
+echo '</table>';
+echo '</div>';
 
-
-echo '<p><a href="stat_pics.php?user_id=' . $top_uploader_user_id . '">Kattints ide</a> a legtöbb képpel rendelkező felhasználó  (' . $top_uploader_username . ') képeinek megtekintéséhez! (' . $top_uploaded_images . ' kép)</p>';
+echo '</table>';
+echo '</div>';
 
 echo '</div>';
 
