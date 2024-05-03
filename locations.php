@@ -31,6 +31,11 @@ while ( $row = oci_fetch_array($stid, OCI_ASSOC + OCI_RETURN_NULLS)) {
 
     echo '<td>'.$gyik["IMAGE_COUNT"].' db</td>';
 
+    echo '<td><form method="post" action="includes/deleteLocation.inc.php">';
+    echo '<input type="hidden" name="location_id" value="'.$row["LOCATION_ID"].'">';
+    echo '<input type="submit" value="Törlés" onclick="return confirm(\'Biztosan törölni szeretné ezt a helyszínt?\')">';
+    echo '</form></td>';
+
     echo '</tr>';
 }
 ?>

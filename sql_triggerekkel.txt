@@ -644,6 +644,8 @@ INSERT INTO USERS (USERNAME, PASSWORD, EMAIL, ROLE) VALUES ('PamelaHughes', 'pam
   ALTER TABLE "PHOTORATING" ADD CONSTRAINT "RATINGUSERID" FOREIGN KEY ("RATINGUSERID")
 	  REFERENCES "USERS" ("USER_ID") ENABLE;
 
+
+
 CREATE OR REPLACE PROCEDURE list_categories_data
 IS
 BEGIN
@@ -652,3 +654,46 @@ BEGIN
         DBMS_OUTPUT.PUT_LINE(user_row.CATEGORY_NAME);
     END LOOP;
 END;
+
+--------------------------------------------------------
+--  Helyszin törlésére használatos eljárás. Használat helye:deleteLocation.php
+--------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE DeleteLocation(
+    p_location_id IN LOCATIONS.LOCATION_ID%TYPE
+)
+AS
+BEGIN
+    DELETE FROM LOCATIONS
+    WHERE LOCATION_ID = p_location_id;
+
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('A helyszín sikeresen törölve lett az adatbázisból.');
+EXCEPTION
+    WHEN NO_DATA_FOUND THEN
+        DBMS_OUTPUT.PUT_LINE('A megadott helyszín nem található az adatbázisban.');
+    WHEN OTHERS THEN
+        DBMS_OUTPUT.PUT_LINE('Hiba történt a helyszín törlése közben.');
+END DeleteLocation;
+/
+
+--------------------------------------------------------
+--  Helyszín beszúrása esetén vizsgálja, hogy szerepel-e már a város az adatbázisban
+--  és nem engedi, hogy duplikátum legyen belőle.
+--------------------------------------------------------
+
+CREATE OR REPLACE TRIGGER prevent_duplicate_city
+BEFORE INSERT ON LOCATIONS
+FOR EACH ROW
+DECLARE
+    city_count NUMBER;
+BEGIN
+    SELECT COUNT(*) INTO city_count
+    FROM LOCATIONS
+    WHERE CITY = :NEW.CITY;
+
+    IF city_count > 0 THEN
+        RAISE_APPLICATION_ERROR(-20001, 'Ez a város már szerepel az adatbázisban.');
+    END IF;
+END;
+/
