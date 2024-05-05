@@ -71,6 +71,63 @@ while ($row_upload_count = oci_fetch_assoc($statement_upload_count_by_date)) {
 echo '</div>';
 echo "</ul>";
 
+echo '<p></p>';
+
+echo '<div id="trendy-dests-wrapper">';
+
+$sql = "SELECT c.CATEGORY_NAME, COUNT(i.CATEGORY_ID) AS num_images
+        FROM CATEGORIES c
+        LEFT JOIN IMAGES i ON c.CATEGORY_ID = i.CATEGORY_ID
+        GROUP BY c.CATEGORY_NAME
+        ORDER BY num_images DESC
+        FETCH FIRST 5 ROWS ONLY";
+
+$stmt = oci_parse($conn, $sql);
+oci_execute($stmt);
+
+echo "<h2>Legnépszerűbb kategóriák:</h2>";
+echo "<ul>";
+while ($row = oci_fetch_assoc($stmt)) {
+    echo "<li>" . $row['CATEGORY_NAME'] . ": " . $row['NUM_IMAGES'] . " kép</li>";
+}
+echo "</ul>";
+
+echo '</div>';
+
+echo '<p></p>';
+echo '<div id="trendy-dests-wrapper">';
+
+
+$sql = "SELECT i.IMAGE_ID, i.IMAGE_PATH, i.TITLE, COUNT(c.COMMENT_ID) AS num_comments
+        FROM IMAGES i
+        LEFT JOIN COMMENTS c ON i.IMAGE_ID = c.IMAGE_ID
+        GROUP BY i.IMAGE_ID, i.IMAGE_PATH, i.TITLE
+        ORDER BY num_comments DESC
+        FETCH FIRST 1 ROW ONLY";
+
+$statement = oci_parse($conn, $sql);
+oci_execute($statement);
+
+if ($row = oci_fetch_assoc($statement)) {
+    $num_comments = $row['NUM_COMMENTS'];
+
+    echo "A legtöbb kommenttel rendelkező kép: <br>";
+
+    echo "Kommentek száma: $num_comments <br>";
+
+
+    echo '<a href="image.php?id=' . $row["IMAGE_ID"] . '" class="main-page-image-wrapper">';
+    echo '<img src="uploadedImages/uploadedImg-' . $row["IMAGE_ID"] . '.jpg" alt="foto" class="my-photo">';
+    echo '<p>' . $row["TITLE"] . '</p>';
+    echo '</a>';
+
+} else {
+    echo "Nincs ilyen kép a rendszerben.";
+}
+echo '</div>';
+
+
+
 include_once('partials/footer.php');
 ?>
 </body>

@@ -15,7 +15,7 @@ if(isset($_GET["delete_contest"])) {
     }
 }
 
-echo '<h2>Kategóriák</h2>';
+echo '<h2>Fotópályázatok</h2>';
 echo '<table id="categories-table">';
 $stid = oci_parse($conn, 'SELECT * FROM CONTESTS');
 echo '<tr><th>Azon.</th><th>Cím</th><th>Leírás</th><th>Kezdőidőpont</th><th>Határidő</th></tr>';
