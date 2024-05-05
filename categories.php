@@ -34,6 +34,14 @@ if(oci_execute($s)){
     }
 }
 
+echo '<table id="categories-table">';
+$sql_categories = oci_parse($conn, 'SELECT * FROM CATEGORIES');
+oci_execute($sql_categories);
+while ( $row = oci_fetch_array($sql_categories, OCI_ASSOC + OCI_RETURN_NULLS)) {
+    echo '<tr><td><a href="category.php?category='.$row["CATEGORY_ID"].'">'.$row["CATEGORY_NAME"].'</a></td></tr>';
+}
+echo '</table>';
+
 oci_free_statement($stid);
 oci_close($conn);
 
